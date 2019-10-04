@@ -22,7 +22,7 @@ app.post('/bot', (req, res) => {
   }
 
   let formData = {
-    channel: "general",
+    channel: "bot",
     blocks: [
       {
         type: "section",
@@ -132,16 +132,16 @@ app.post("/actions", (req, res) => {
     const trigger_id = parseData.trigger_id;
     // console.log(parseData.view.state.values);
     if(JSON.parse(req.body.payload).type === "view_submission"){
-      console.log(parseData.view.state.values);
-      for(let value in parseData.view.state.values){
-        console.log(value);
-        if(parseData.view.state.values[value].hasOwnProperty('team_name')){
-          console.log("TEAM NAME", parseData.view.state.values[value].team_name.value);
-        } else if(parseData.view.state.values[value].hasOwnProperty('members')){
-          console.log(parseData.view.state.values[value].members.selected_users);
-        } else {
-          console.log(parseData.view.state.values[value].group_settings.selected_option);
-        }
+      // console.log(parseData.view.state.values);
+      // for(let value in parseData.view.state.values){
+      //   console.log(value);
+      //   if(parseData.view.state.values[value].hasOwnProperty('team_name')){
+      //     console.log("TEAM NAME", parseData.view.state.values[value].team_name.value);
+      //   } else if(parseData.view.state.values[value].hasOwnProperty('members')){
+      //     console.log(parseData.view.state.values[value].members.selected_users);
+      //   } else {
+      //     console.log(parseData.view.state.values[value].group_settings.selected_option);
+      //   }
       }
       return res.sendStatus(200);
     }
