@@ -246,7 +246,6 @@ app.post("/actions", (req, res) => {
       }
     }
   
-    // console.log("action body trigger_id", trigger_id);
     axios.post("https://slack.com/api/views.open", formData, config);
   }
   
