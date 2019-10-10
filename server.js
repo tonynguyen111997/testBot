@@ -1,10 +1,12 @@
-require('dotenv').config()
+require('dotenv').config();
 
 const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
+const { WebClient } = require('@slack/web-api');
 
 const app = express();
+const web = new WebClient(process.env.BOTS_TOKEN);
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json());
@@ -246,7 +248,8 @@ app.post("/actions", (req, res) => {
       }
     }
   
-    axios.post("https://slack.com/api/views.open", formData, config);
+    // axios.post("https://slack.com/api/views.open", formData, config);
+    web.views.open(formData);
   }
   
   res.sendStatus(200);
@@ -255,78 +258,3 @@ app.post("/actions", (req, res) => {
 app.listen(process.env.PORT, () => {
   console.log(`Server is listening to port ${process.env.PORT}`);
 });
-
-
-// {
-// 	blocks: [
-// 		{
-// 			type: "section",
-// 			text: {
-// 				type: "mrkdwn",
-// 				text: "Hello, below are the available teams for *Hack Day September 2019*. If you'd like to learn more about Hack Day, please visit our Hack Day website at ..."
-// 			}
-// 		},
-// 		{
-// 			type: "divider"
-// 		},
-//         {
-//         	type: "section",
-//             text: {
-// 				type: "mrkdwn",
-// 				text: "*<https://www.meetup.com/iesd-meetup/events/264486598/| Hack Day September 2019>*\nSaturday, September 28 2:30-7:00pm\nExCite Riverside\n32 members have RSVP\n\n\n *Here are the current teams:*"
-// 			},
-//             accessory: {
-//             	type: "image",
-//                 "image_url": "https://secure.meetupstatic.com/photos/event/8/a/a/9/highres_484355497.jpeg",
-//                 "alt_text": "test"
-//             }
-//         },
-//         {
-//         	type: "divider"
-//         },
-// 		{
-// 			type: "section",
-// 			text: {
-// 				type: "mrkdwn",
-// 				text: "*Team Name Here (5)*\nRyan, Greg, David, Andy, Tony"
-// 			},
-// 			accessory: {
-// 				type: "button",
-// 				text: {
-//                     type: "plain_text",
-//                 	text: "Choose"
-//                 }
-// 			}
-// 		},
-//         {
-// 			type: "section",
-// 			text: {
-// 				type: "mrkdwn",
-// 				text: "*PRo Coders (5)*\nBob, Jake, Joe"
-// 			},
-// 			accessory: {
-// 				type: "button",
-// 				text: {
-//                     type: "plain_text",
-//                 	text: "Invite Only"
-//                 }
-// 			}
-// 		},
-// 		{
-// 			type: "divider"
-// 		},
-//         {
-//         	type: "actions",
-//             elements: [
-//                 {
-//                 	type: "button",
-//                     text: {
-//                         type: "plain_text",
-//                     	text: "Create a team"
-//                     }
-//                 }
-//             ]
-//         }
-// 	]
-// }
-
